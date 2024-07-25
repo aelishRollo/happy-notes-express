@@ -5,8 +5,16 @@ const MongoClient = require('mongodb').MongoClient
 const PORT = process.env.PORT || 3000;
 require('dotenv').config();
 
+let connectionString = process.env.DB_STRING
 
-MongoClient.connect()
+
+MongoClient.connect(connectionString)
+  .then(client => {
+    console.log('Connected to Database')
+  })
+  .catch(error => console.error(error))
+
+
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.listen(3000, () => {
