@@ -12,8 +12,23 @@ MongoClient.connect(connectionString)
   .then(client => {
     console.log('Connected to Database')
     const db = client.db('cluster0')
+    const quotesCollection = db.collection('quotes')
+
+
+  app.post('/quotes', (req, res) => {
+    quotesCollection
+        .insertOne(req.body)
+        .then(result => {
+            console.log(result)
+        })
+        .catch(error => console.error(error))
+  })
+
+
   })
   .catch(error => console.error(error))
+
+
 
 
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -27,8 +42,3 @@ app.get('/',(req,res) => {
     console.log('ROOT ROUTE RAIDED, RUH-ROH-RAGGY')
     res.sendFile(__dirname + '/index.html')
 })
-
-app.post('/quotes', (req, res) => {
-    console.log(req.body)
-    res.send(req.body)
-  })
