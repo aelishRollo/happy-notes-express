@@ -10,5 +10,5 @@ app.listen(3000, () => {
 
 app.get('/',(req,res) => {
     console.log('ROOT ROUTE RAIDED, RUH-ROH-RAGGY')
-    res.send('Hello, Universe')
+    res.sendFile(__dirname + '/index.html')
 })
