@@ -8,4 +8,6 @@ What I've done:
 
 4. In the terminal: `npm install nodemon --save-dev`
 
-5. In the terminal `npm install body-parser --save`
+5. In the terminal: `npm install body-parser --save`
+
+6. In the terminal: `npm install mongodb --save`
