@@ -11,6 +11,7 @@ let connectionString = process.env.DB_STRING
 MongoClient.connect(connectionString)
   .then(client => {
     console.log('Connected to Database')
+    const db = client.db('cluster0')
   })
   .catch(error => console.error(error))
 
