@@ -7,3 +7,5 @@ What I've done:
 3. Add `node_modules` to .gitignore
 
 4. In the terminal: `npm install nodemon --save-dev`
+
+5. In the terminal `npm install body-parser --save`

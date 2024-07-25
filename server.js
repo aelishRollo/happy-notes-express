@@ -12,3 +12,7 @@ app.get('/',(req,res) => {
     console.log('ROOT ROUTE RAIDED, RUH-ROH-RAGGY')
     res.sendFile(__dirname + '/index.html')
 })
+
+app.post('/quotes', (req, res) => {
+    console.log('User made a POST request')
+  })
