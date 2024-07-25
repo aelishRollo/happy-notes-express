@@ -11,3 +11,5 @@ What I've done:
 5. In the terminal: `npm install body-parser --save`
 
 6. In the terminal: `npm install mongodb --save`
+
+7. In the terminal: `npm install dotenv`
