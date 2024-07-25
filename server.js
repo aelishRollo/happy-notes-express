@@ -1,7 +1,9 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const app = express()
 const PORT = 3000
 
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.listen(3000, () => {
     console.log(`Hello Wizard, we listening on ${PORT}`)
@@ -14,5 +16,6 @@ app.get('/',(req,res) => {
 })
 
 app.post('/quotes', (req, res) => {
-    console.log('User made a POST request')
+    console.log(req.body)
+    res.send(req.body)
   })
