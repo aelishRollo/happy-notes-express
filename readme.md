@@ -13,3 +13,5 @@ What I've done:
 6. In the terminal: `npm install mongodb --save`
 
 7. In the terminal: `npm install dotenv`
+
+8. In the terminal: `npm install ejs --save`
