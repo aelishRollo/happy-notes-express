@@ -65,9 +65,9 @@ MongoClient.connect(connectionString) //Connect to Mongo
                         upsert: true,
                     }
                 )
-                .then(result => {
-                    console.log(result)
-                })
+                .then(response => {
+                    res.json('Successfully upserted, baby')
+                  })
                 .catch(error => console.error(error))
         })
 
