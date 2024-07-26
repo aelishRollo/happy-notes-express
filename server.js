@@ -1,47 +1,81 @@
 const PORT = process.env.PORT || 3000;
-const express = require('express')
-const bodyParser = require('body-parser')
-const app = express()
-app.set('view engine', 'ejs')
+
 const MongoClient = require('mongodb').MongoClient
 require('dotenv').config();
+const bodyParser = require('body-parser')
+
+const express = require('express')
+const app = express()
+app.set('view engine', 'ejs')
+app.use(express.static('public'))
+app.use(bodyParser.json())
+
+
+
 
 let connectionString = process.env.DB_STRING
 
 
 MongoClient.connect(connectionString) //Connect to Mongo
-  .then(client => {
-    console.log('Connected to Database')
-    const db = client.db('cluster0')        //Get my cluster
-    const quotesCollection = db.collection('quotes')        //Get my table of quotes from my cluster
+    .then(client => {
+        console.log('Connected to Database')
+        const db = client.db('cluster0')        //Get my cluster
+        const quotesCollection = db.collection('quotes')        //Get my table of quotes from my cluster
 
 
-  app.post('/quotes', (req, res) => {   //To update the table, do things like quotesCollection.insertOne()
-    quotesCollection
-        .insertOne(req.body)
-        .then(result => {
-            console.log(result)
+
+        app.get('/', (req, res) => {
+            console.log('ROOT ROUTE RAIDED, RUH-ROH-RAGGY')
+
+            db.collection('quotes')
+                .find()
+                .toArray()
+                .then(results => {
+                    res.render('index.ejs', { quotes: results })
+                })
+                .catch(error => console.error(error))
+
         })
-        .catch(error => console.error(error))
-    res.send('You have submitted data to the database')
-  })
 
-  app.get('/',(req,res) => {
-    console.log('ROOT ROUTE RAIDED, RUH-ROH-RAGGY')
 
-    db.collection('quotes')
-        .find()
-        .toArray()
-        .then(results => {
-            res.render('index.ejs', {quotes:results})
+
+        app.post('/quotes', (req, res) => {   //To add to the table, do things like quotesCollection.insertOne()
+            quotesCollection
+                .insertOne(req.body)
+                .then(result => {
+                    console.log(result)
+                })
+                .catch(error => console.error(error))
+            res.send('You have submitted data to the database')
         })
-        .catch(error => console.error(error))
-    
-})
 
-  })
-  .catch(error => console.error(error))
+       
 
+        app.put('/quotes', (req, res) => {   //To update the table, do things like quotesCollection.findOneAndUpdate()
+            quotesCollection
+                .findOneAndUpdate(
+                    { name: 'Yoda' },
+                    {
+                        $set: {
+                            name: req.body.name,
+                            quote: req.body.quote,
+                        },
+                    },
+                    {
+                        upsert: true,
+                    }
+                )
+                .then(result => {
+                    console.log(result)
+                })
+                .catch(error => console.error(error))
+        })
+
+
+
+
+    })
+    .catch(error => console.error(error))
 
 
 
