@@ -33,10 +33,10 @@ MongoClient.connect(connectionString) //Connect to Mongo
         .find()
         .toArray()
         .then(results => {
-            console.log(results)
+            res.render('index.ejs', {quotes:results})
         })
         .catch(error => console.error(error))
-    res.sendFile(__dirname + '/index.html')
+    
 })
 
   })
